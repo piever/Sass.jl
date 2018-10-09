@@ -3,26 +3,24 @@ const attributes_setters = Dict(
     :source_comments => sass_option_set_source_comments,
 )
 
-function create_context(filename; kwargs...)
-    context = sass_make_file_context(filename)
-    options = sass_file_context_get_options(context)
+function compile(filename; kwargs...)
+    ctx = sass_make_file_context(filename)
+    ctx_out = sass_file_context_get_context(ctx)
+    options = sass_context_get_options(ctx)
     for (key, val) in kwargs
         setter = get(attributes_setters, key, nothing)
         setter === nothing || setter(options, val)
     end
 
-    sass_file_context_set_options(context, options)
-    context
-end
+    sass_file_context_set_options(ctx, options)
 
-compile(filename::AbstractString; kwargs...) = compile(create_context(filename; kwargs...))
+    sass_compile_file_context(ctx)
 
-function compile(context)
-    compiler = sass_make_file_compiler(context)
-    sass_compiler_parse(compiler)
-    sass_compiler_execute(compiler)
+    status = sass_context_get_error_status(ctx_out)
 
-    output = sass_context_get_output_string(context)
-    sass_delete_compiler(compiler)
-    output === nothing ? error(sass_context_get_error_text(context)) : output
+    ret = status == 0 ? sass_context_get_output_string(ctx_out) :
+        error(sass_context_get_error_text(ctx_out))
+
+    sass_delete_file_context(ctx)
+    ret
 end
