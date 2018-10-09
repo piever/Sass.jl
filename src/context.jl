@@ -22,7 +22,7 @@ end
 function sass_context_get_output_string(context)
     s = ccall((:sass_context_get_output_string, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cstring, (Ptr{Cvoid},), context)
-    unsafe_string(s)
+    s == C_NULL ? error(sass_context_get_error_text(context)) : unsafe_string(s)
 end
 
 function sass_context_get_error_status(context)

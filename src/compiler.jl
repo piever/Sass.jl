@@ -1,6 +1,7 @@
 export sass_make_file_compiler
 export sass_compiler_parse
 export sass_compiler_execute
+export sass_delete_compiler
 
 function sass_make_file_compiler(sass_context)
     ccall((:sass_make_file_compiler, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
@@ -14,5 +15,10 @@ end
 
 function sass_compiler_execute(compiler)
     ccall((:sass_compiler_execute, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cvoid, (Ptr{Cvoid},), compiler)
+end
+
+function sass_delete_compiler(compiler)
+    ccall((:sass_delete_compiler, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cvoid, (Ptr{Cvoid},), compiler)
 end
