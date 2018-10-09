@@ -99,17 +99,17 @@ end
 function sass_context_get_error_json(context)
     s = ccall((:sass_context_get_error_json, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cstring, (Ptr{Cvoid},), context)
-    unsafe_string(s)
+    s == C_NULL ? nothing : unsafe_string(s)
 end
 
 function sass_context_get_error_text(context)
     s = ccall((:sass_context_get_error_text, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cstring, (Ptr{Cvoid},), context)
-    unsafe_string(s)
+    s == C_NULL ? nothing : unsafe_string(s)
 end
 
 function sass_context_get_error_message(context)
     s = ccall((:sass_context_get_error_message, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cstring, (Ptr{Cvoid},), context)
-    unsafe_string(s)
+    s == C_NULL ? nothing : unsafe_string(s)
 end
