@@ -14,14 +14,16 @@
 Building a file compiler
 
 ```julia
-context = sass_make_file_context("file.scss")
+using Sass
+filename = joinpath(Sass.examplefolder, "test.sass")
+context = sass_make_file_context(filename)
 options = sass_file_context_get_options(context)
 sass_option_set_precision(options, 1)
 sass_option_set_source_comments(options, true)
 
 sass_file_context_set_options(context, options)
 
-compiler = sass_make_file_compiler(sass_context)
+compiler = sass_make_file_compiler(context)
 sass_compiler_parse(compiler)
 sass_compiler_execute(compiler)
 
