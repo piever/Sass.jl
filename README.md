@@ -35,25 +35,8 @@ json_error = sass_context_get_error_json(context)
 sass_delete_compiler(compiler)
 ```
 
-Building a data compiler
+With a Julian API:
 
 ```julia
-context = sass_make_data_context("div { a { color: blue; } }")
-options = sass_data_context_get_options(context)
-sass_option_set_precision(options, 1)
-sass_option_set_source_comments(options, true)
-
-sass_data_context_set_options(context, options)
-
-compiler = sass_make_data_compiler(context)
-sass_compiler_parse(compiler)
-sass_compiler_execute(compiler)
-
-output = sass_context_get_output_string(context)
-# div a { color: blue; }
-# Retrieve errors during compilation
-error_status = sass_context_get_error_status(context)
-json_error = sass_context_get_error_json(context)
-# Release memory dedicated to the C compiler
-sass_delete_compiler(compiler)
+Sass.compile_file(filename; precision = 1, source_comments = true)
 ```

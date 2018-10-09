@@ -3,7 +3,7 @@ const attributes_setters = Dict(
     :source_comments => sass_option_set_source_comments,
 )
 
-function compile(filename; kwargs...)
+function compile_file(filename; kwargs...)
     ctx = sass_make_file_context(filename)
     ctx_out = sass_file_context_get_context(ctx)
     options = sass_context_get_options(ctx)
