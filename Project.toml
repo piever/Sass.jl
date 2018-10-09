@@ -1,0 +1,12 @@
+name = "Sass"
+uuid = "322a6be2-4ae8-5d68-aaf1-3e960788d1d9"
+authors = ["Pietro Vertechi <pietro.vertechi@neuro.fchampalimaud.org>"]
+version = "0.1.0"
+
+[deps]
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
