@@ -1,10 +1,16 @@
 export sass_make_file_compiler
+export sass_make_data_compiler
 export sass_compiler_parse
 export sass_compiler_execute
 export sass_delete_compiler
 
 function sass_make_file_compiler(sass_context)
     ccall((:sass_make_file_compiler, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Ptr{Cvoid}, (Ptr{Cvoid},), sass_context)
+end
+
+function sass_make_data_compiler(sass_context)
+    ccall((:sass_make_data_compiler, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Ptr{Cvoid}, (Ptr{Cvoid},), sass_context)
 end
 
