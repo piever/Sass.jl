@@ -4,6 +4,10 @@ export sass_option_get_source_map_file, sass_option_set_source_map_file
 export sass_option_get_omit_source_map_url, sass_option_set_omit_source_map_url
 export sass_option_get_source_map_embed, sass_option_set_source_map_embed
 export sass_option_get_source_map_contents, sass_option_set_source_map_contents
+export sass_option_get_source_map_root, sass_option_set_source_map_root
+export sass_option_get_is_indented_syntax_src, sass_option_set_is_indented_syntax_src
+export sass_option_get_indent, sass_option_set_indent
+export sass_option_get_linefeed, sass_option_set_linefeed
 export sass_option_get_precision, sass_option_set_precision
 
 function sass_option_get_output_style(options)
@@ -64,6 +68,49 @@ end
 function sass_option_set_source_map_contents(options, source_map_contents)
     ccall((:sass_option_set_source_map_contents, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cvoid, (Ptr{Cvoid}, Cint), options, source_map_contents)
+end
+
+function sass_option_get_source_map_root(options)
+    s = ccall((:sass_option_get_source_map_root, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cstring, (Ptr{Cvoid},), options)
+    s == C_NULL ? nothing : unsafe_string(s)
+end
+
+function sass_option_set_source_map_root(options, source_map_root)
+    ccall((:sass_option_set_source_map_root, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cvoid, (Ptr{Cvoid}, Cstring), options, source_map_root)
+end
+
+function sass_option_get_is_indented_syntax_src(options)
+    ccall((:sass_option_get_is_indented_syntax_src, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cint, (Ptr{Cvoid},), options)
+end
+
+function sass_option_set_is_indented_syntax_src(options, is_indented_syntax_src)
+    ccall((:sass_option_set_is_indented_syntax_src, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cvoid, (Ptr{Cvoid}, Cint), options, is_indented_syntax_src)
+end
+
+function sass_option_get_indent(options)
+    s = ccall((:sass_option_get_indent, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cstring, (Ptr{Cvoid},), options)
+    s == C_NULL ? nothing : unsafe_string(s)
+end
+
+function sass_option_set_indent(options, indent)
+    ccall((:sass_option_set_indent, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cvoid, (Ptr{Cvoid}, Cstring), options, indent)
+end
+
+function sass_option_get_linefeed(options)
+    s = ccall((:sass_option_get_linefeed, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cstring, (Ptr{Cvoid},), options)
+    s == C_NULL ? nothing : unsafe_string(s)
+end
+
+function sass_option_set_linefeed(options, linefeed)
+    ccall((:sass_option_set_linefeed, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cvoid, (Ptr{Cvoid}, Cstring), options, linefeed)
 end
 
 function sass_option_get_precision(options)
