@@ -8,6 +8,8 @@ export sass_option_get_source_map_root, sass_option_set_source_map_root
 export sass_option_get_is_indented_syntax_src, sass_option_set_is_indented_syntax_src
 export sass_option_get_indent, sass_option_set_indent
 export sass_option_get_linefeed, sass_option_set_linefeed
+export sass_option_get_include_paths, sass_option_set_include_paths
+export sass_option_get_plugin_paths, sass_option_set_plugin_paths
 export sass_option_get_precision, sass_option_set_precision
 
 function sass_option_get_output_style(options)
@@ -113,6 +115,30 @@ function sass_option_set_linefeed(options, linefeed)
         Cvoid, (Ptr{Cvoid}, Cstring), options, linefeed)
 end
 
+function sass_option_get_include_paths(options)
+    s = ccall((:sass_option_get_include_paths, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cstring, (Ptr{Cvoid},), options)
+    s == C_NULL && return nothing
+    julia_pathlist(unsafe_string(s))
+end
+
+function sass_option_set_include_paths(options, include_paths)
+    ccall((:sass_option_set_include_paths, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cvoid, (Ptr{Cvoid}, Cstring), options, c_pathlist(include_paths))
+end
+
+function sass_option_get_plugin_paths(options)
+    s = ccall((:sass_option_get_plugin_paths, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cstring, (Ptr{Cvoid},), options)
+    s == C_NULL && return nothing
+    julia_pathlist(unsafe_string(s))
+end
+
+function sass_option_set_plugin_paths(options, plugin_paths)
+    ccall((:sass_option_set_plugin_paths, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cvoid, (Ptr{Cvoid}, Cstring), options, c_pathlist(plugin_paths))
+end
+
 function sass_option_get_precision(options)
     ccall((:sass_option_get_precision, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cint, (Ptr{Cvoid},), options)
@@ -122,3 +148,10 @@ function sass_option_set_precision(options, precision)
     ccall((:sass_option_set_precision, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cvoid, (Ptr{Cvoid}, Cint), options, precision)
 end
+
+const separator = Sys.iswindows() ? "; " : ", "
+
+c_pathlist(s::AbstractString) = s
+c_pathlist(s) = join(s, separator)
+
+julia_pathlist = split(s, separator)
