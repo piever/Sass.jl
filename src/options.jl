@@ -10,6 +10,8 @@ export sass_option_get_include_path, sass_option_set_include_path
 export sass_option_get_plugin_path, sass_option_set_plugin_path
 export sass_option_get_indent, sass_option_set_indent
 export sass_option_get_linefeed, sass_option_set_linefeed
+export sass_option_get_input_path, sass_option_set_input_path
+export sass_option_get_output_path, sass_option_set_output_path
 export sass_option_get_precision, sass_option_set_precision
 
 @enum Style nested expanded compact compressed
@@ -143,6 +145,28 @@ end
 function sass_option_set_linefeed(options, linefeed)
     ccall((:sass_option_set_linefeed, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cvoid, (Ptr{Cvoid}, Cstring), options, linefeed)
+end
+
+function sass_option_get_input_path(options)
+    s = ccall((:sass_option_get_input_path, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cstring, (Ptr{Cvoid},), options)
+    s == C_NULL ? nothing : unsafe_string(s)
+end
+
+function sass_option_set_input_path(options, input_path)
+    ccall((:sass_option_set_input_path, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cvoid, (Ptr{Cvoid}, Cstring), options, input_path)
+end
+
+function sass_option_get_output_path(options)
+    s = ccall((:sass_option_get_output_path, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cstring, (Ptr{Cvoid},), options)
+    s == C_NULL ? nothing : unsafe_string(s)
+end
+
+function sass_option_set_output_path(options, output_path)
+    ccall((:sass_option_set_output_path, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cvoid, (Ptr{Cvoid}, Cstring), options, output_path)
 end
 
 function sass_option_get_precision(options)

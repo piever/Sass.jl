@@ -11,6 +11,8 @@ const attributes_setters = Dict(
     :plugin_path => sass_option_set_plugin_path,
     :indent => sass_option_set_indent,
     :linefeed => sass_option_set_linefeed,
+    :input_path => sass_option_set_input_path,
+    :output_path => sass_option_set_output_path,
     :precision => sass_option_set_precision,
 )
 
