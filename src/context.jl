@@ -43,9 +43,9 @@ end
 
 # Data
 
-function sass_make_data_context(filename)
+function sass_make_data_context(data)
     ccall((:sass_make_data_context, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
-        Ptr{Cvoid}, (Cstring,), filename)
+        Ptr{Cvoid}, (Ptr{UInt8},), data)
 end
 
 function sass_delete_data_context(context)
