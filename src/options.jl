@@ -4,6 +4,7 @@ export sass_option_get_source_map_file, sass_option_set_source_map_file
 export sass_option_get_omit_source_map_url, sass_option_set_omit_source_map_url
 export sass_option_get_source_map_embed, sass_option_set_source_map_embed
 export sass_option_get_source_map_contents, sass_option_set_source_map_contents
+export sass_option_get_source_map_file_urls, sass_option_set_source_map_file_urls
 export sass_option_get_source_map_root, sass_option_set_source_map_root
 export sass_option_get_is_indented_syntax_src, sass_option_set_is_indented_syntax_src
 export sass_option_get_include_path, sass_option_set_include_path
@@ -78,6 +79,16 @@ end
 function sass_option_set_source_map_contents(options, source_map_contents)
     ccall((:sass_option_set_source_map_contents, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cvoid, (Ptr{Cvoid}, Cint), options, source_map_contents)
+end
+
+function sass_option_get_source_map_file_urls(options)
+    ccall((:sass_option_get_source_map_file_urls, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cint, (Ptr{Cvoid},), options)
+end
+
+function sass_option_set_source_map_file_urls(options, source_map_file_urls)
+    ccall((:sass_option_set_source_map_file_urls, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cvoid, (Ptr{Cvoid}, Cint), options, source_map_file_urls)
 end
 
 function sass_option_get_source_map_root(options)

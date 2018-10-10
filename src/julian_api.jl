@@ -5,6 +5,7 @@ const attributes_setters = Dict(
     :omit_source_map_url => sass_option_set_omit_source_map_url,
     :source_map_embed => sass_option_set_source_map_embed,
     :source_map_contents => sass_option_set_source_map_contents,
+    :source_map_file_urls => sass_option_set_source_map_file_urls,
     :source_map_root => sass_option_set_source_map_root,
     :is_indented_syntax_src => sass_option_set_is_indented_syntax_src,
     :include_path => sass_option_set_include_path,
