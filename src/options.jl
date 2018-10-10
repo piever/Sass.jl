@@ -42,8 +42,9 @@ function sass_option_set_source_comments(options, source_comments)
 end
 
 function sass_option_get_source_map_file(options)
-    ccall((:sass_option_get_source_map_file, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+    s = ccall((:sass_option_get_source_map_file, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cstring, (Ptr{Cvoid},), options)
+    s == C_NULL ? nothing : unsafe_string(s)
 end
 
 function sass_option_set_source_map_file(options, map_file)

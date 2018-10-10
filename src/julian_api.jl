@@ -17,7 +17,7 @@ const attributes_setters = Dict(
     :precision => sass_option_set_precision,
 )
 
-function compile_file(filename; kwargs...)
+function compile_file(filename; input_path = filename, kwargs...)
     ctx = sass_make_file_context(filename)
     ctx_out = sass_file_context_get_context(ctx)
     options = sass_context_get_options(ctx)
@@ -25,6 +25,8 @@ function compile_file(filename; kwargs...)
         setter = get(attributes_setters, key, nothing)
         setter === nothing || setter(options, val)
     end
+    sass_option_set_input_path(options, input_path)
+    srcmap_file = sass_option_get_source_map_file(options)
 
     sass_file_context_set_options(ctx, options)
 
@@ -32,15 +34,17 @@ function compile_file(filename; kwargs...)
 
     status = sass_context_get_error_status(ctx_out)
 
-    ret = status == 0 ? sass_context_get_output_string(ctx_out) :
-        error(sass_context_get_error_text(ctx_out))
+    status == 0 || error(sass_context_get_error_text(ctx_out))
+
+    ret = srcmap_file === nothing ? sass_context_get_output_string(ctx_out) :
+        sass_context_get_source_map_string(ctx_out)
 
     sass_delete_file_context(ctx)
     ret
 end
 
-function compile_file(filename, dest; kwargs...)
-    css = compile_file(filename; kwargs...)
+function compile_file(filename, dest; output_path = dest, kwargs...)
+    css = compile_file(filename; output_path = output_path, kwargs...)
     open(dest, "w") do io
          write(io, css)
      end

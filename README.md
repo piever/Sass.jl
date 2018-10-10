@@ -42,7 +42,7 @@ All libsass options can be passed as keyword arguments:
 - `plugin_paths` (`AbstractString` or `AbstractArray{<:AbstractString}`)
 - `indent`: string to be used for indentation
 - `linefeed`: string to be used to for line feeds
-- `input_path`: the input path is used for source map generating. It can be used to define something with string compilation or to overload the input file path. It is set to "stdin" for data contexts and to the input file on file contexts.
+- `input_path`: the input path is used for source map generating. It can be used to define something with string compilation or to overload the input file path. It is set to `stdin` for data contexts and to the input file on file contexts.
 - `output_path`: the output path is used for source map generating. LibSass will not write to this file, it is just used to create information in source-maps etc.
 - `precision`: precision for outputting fractional numbers
 

@@ -4,6 +4,7 @@ export sass_make_data_context, sass_delete_data_context, sass_compile_data_conte
 export sass_data_context_get_context, sass_data_context_get_options, sass_data_context_set_options
 export sass_context_get_options, sass_context_set_options
 export sass_context_get_output_string
+export sass_context_get_source_map_string
 export sass_context_get_error_status
 export sass_context_get_error_json
 export sass_context_get_error_text
@@ -87,6 +88,12 @@ end
 
 function sass_context_get_output_string(context)
     s = ccall((:sass_context_get_output_string, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cstring, (Ptr{Cvoid},), context)
+    s == C_NULL ? nothing : unsafe_string(s)
+end
+
+function sass_context_get_source_map_string(context)
+    s = ccall((:sass_context_get_source_map_string, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cstring, (Ptr{Cvoid},), context)
     s == C_NULL ? nothing : unsafe_string(s)
 end
