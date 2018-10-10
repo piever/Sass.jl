@@ -24,3 +24,10 @@ function compile_file(filename; kwargs...)
     sass_delete_file_context(ctx)
     ret
 end
+
+function compile_file(filename, dest; kwargs...)
+    css = compile_file(filename; kwargs...)
+    open(dest, "w") do io
+         write(io, css)
+     end
+ end
