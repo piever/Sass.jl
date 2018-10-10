@@ -29,7 +29,7 @@ Sass.compile_file(filename, dest; kwargs...)
 
 All libsass options can be passed as keyword arguments:
 
-- `output_style`: output style for the generated css code
+- `output_style`: output style for the generated css code. See `Sass.Style` for options. For example `output_style  = Sass.nested`
 - `source_comments`: a boolean to specify whether to insert inline source comments
 - `source_map_file`: path to source map file, enables the source map generating used to create sourceMappingUrl
 - `omit_source_map_url`: disable sourceMappingUrl in css output
