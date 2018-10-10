@@ -154,4 +154,4 @@ const separator = Sys.iswindows() ? "; " : ", "
 c_pathlist(s::AbstractString) = s
 c_pathlist(s) = join(s, separator)
 
-julia_pathlist = split(s, separator)
+julia_pathlist(s) = split(s, separator)
