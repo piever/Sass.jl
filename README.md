@@ -9,9 +9,19 @@
 [![Build Status](https://travis-ci.org/piever/Sass.jl.svg?branch=master)](https://travis-ci.org/piever/Sass.jl)
 [![codecov.io](http://codecov.io/github/piever/Sass.jl/coverage.svg?branch=master)](http://codecov.io/github/piever/Sass.jl?branch=master)
 
-## Example (from libsass docs)
+## Compile scss and sass file to css in Julia
 
-Building a file compiler
+This library provides a simple Julian API to use the libsass library to compile scss and sass files to css.
+
+```julia
+Sass.compile_file(filename; precision = 1, source_comments = true)
+```
+
+## Using the libsass API
+
+For more advanced use, the main functions of the libsass API are ported and can be used directly for a finer control. This is more complicated and should be unnecessary in most cases.
+
+### Example (from libsass docs): building a file compiler
 
 ```julia
 using Sass
@@ -33,10 +43,4 @@ error_status = sass_context_get_error_status(context)
 json_error = sass_context_get_error_json(context)
 # Release memory dedicated to the C compiler
 sass_delete_compiler(compiler)
-```
-
-With a Julian API:
-
-```julia
-Sass.compile_file(filename; precision = 1, source_comments = true)
 ```
