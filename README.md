@@ -14,8 +14,34 @@
 This library provides a simple Julian API to use the libsass library to compile scss and sass files to css.
 
 ```julia
+using Sass
+filename = joinpath(Sass.examplefolder, "test.sass")
 Sass.compile_file(filename; precision = 1, source_comments = true)
 ```
+
+To write the output to a file use the signature:
+
+```julia
+Sass.compile_file(filename, dest; kwargs...)
+```
+
+## List of keyword arguments
+
+All libsass options can be passed as keyword arguments:
+
+- `output_style`: output style for the generated css code
+- `source_comments`: a boolean to specify whether to insert inline source comments
+- `source_map_file`: path to source map file, enables the source map generating used to create sourceMappingUrl
+- `omit_source_map_url`: disable sourceMappingUrl in css output
+- `source_map_embed`: embed sourceMappingUrl as data uri
+- `source_map_contents`: embed include contents in maps
+- `source_map_root`: pass-through as sourceRoot property
+- `is_indented_syntax_src`: treat source_string as sass (as opposed to scss)
+- `include_paths` (`AbstractString` or `AbstractArray{<:AbstractString}`)
+- `plugin_paths` (`AbstractString` or `AbstractArray{<:AbstractString}`)
+- `indent`: string to be used for indentation
+- `linefeed`: string to be used to for line feeds
+- `precision`: precision for outputting fractional numbers
 
 ## Using the libsass API
 
