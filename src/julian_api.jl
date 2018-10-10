@@ -1,6 +1,20 @@
 const attributes_setters = Dict(
-    :precision => sass_option_set_precision,
+    :output_style => sass_option_set_output_style,
     :source_comments => sass_option_set_source_comments,
+    :source_map_file => sass_option_set_source_map_file,
+    :omit_source_map_url => sass_option_set_omit_source_map_url,
+    :source_map_embed => sass_option_set_source_map_embed,
+    :source_map_contents => sass_option_set_source_map_contents,
+    :source_map_file_urls => sass_option_set_source_map_file_urls,
+    :source_map_root => sass_option_set_source_map_root,
+    :is_indented_syntax_src => sass_option_set_is_indented_syntax_src,
+    :include_path => sass_option_set_include_path,
+    :plugin_path => sass_option_set_plugin_path,
+    :indent => sass_option_set_indent,
+    :linefeed => sass_option_set_linefeed,
+    :input_path => sass_option_set_input_path,
+    :output_path => sass_option_set_output_path,
+    :precision => sass_option_set_precision,
 )
 
 function compile_file(filename; kwargs...)
