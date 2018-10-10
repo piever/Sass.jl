@@ -6,8 +6,8 @@ export sass_option_get_source_map_embed, sass_option_set_source_map_embed
 export sass_option_get_source_map_contents, sass_option_set_source_map_contents
 export sass_option_get_source_map_root, sass_option_set_source_map_root
 export sass_option_get_is_indented_syntax_src, sass_option_set_is_indented_syntax_src
-export sass_option_get_include_paths, sass_option_set_include_paths
-export sass_option_get_plugin_paths, sass_option_set_plugin_paths
+export sass_option_get_include_path, sass_option_set_include_path
+export sass_option_get_plugin_path, sass_option_set_plugin_path
 export sass_option_get_indent, sass_option_set_indent
 export sass_option_get_linefeed, sass_option_set_linefeed
 export sass_option_get_precision, sass_option_set_precision
@@ -99,28 +99,28 @@ function sass_option_set_is_indented_syntax_src(options, is_indented_syntax_src)
         Cvoid, (Ptr{Cvoid}, Cint), options, is_indented_syntax_src)
 end
 
-function sass_option_get_include_paths(options)
-    s = ccall((:sass_option_get_include_paths, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+function sass_option_get_include_path(options)
+    s = ccall((:sass_option_get_include_path, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cstring, (Ptr{Cvoid},), options)
     s == C_NULL && return nothing
     julia_pathlist(unsafe_string(s))
 end
 
-function sass_option_set_include_paths(options, include_paths)
-    ccall((:sass_option_set_include_paths, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
-        Cvoid, (Ptr{Cvoid}, Cstring), options, c_pathlist(include_paths))
+function sass_option_set_include_path(options, include_path)
+    ccall((:sass_option_set_include_path, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cvoid, (Ptr{Cvoid}, Cstring), options, c_pathlist(include_path))
 end
 
-function sass_option_get_plugin_paths(options)
-    s = ccall((:sass_option_get_plugin_paths, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+function sass_option_get_plugin_path(options)
+    s = ccall((:sass_option_get_plugin_path, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cstring, (Ptr{Cvoid},), options)
     s == C_NULL && return nothing
     julia_pathlist(unsafe_string(s))
 end
 
-function sass_option_set_plugin_paths(options, plugin_paths)
-    ccall((:sass_option_set_plugin_paths, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
-        Cvoid, (Ptr{Cvoid}, Cstring), options, c_pathlist(plugin_paths))
+function sass_option_set_plugin_path(options, plugin_path)
+    ccall((:sass_option_set_plugin_path, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+        Cvoid, (Ptr{Cvoid}, Cstring), options, c_pathlist(plugin_path))
 end
 
 function sass_option_get_indent(options)
@@ -155,7 +155,7 @@ function sass_option_set_precision(options, precision)
         Cvoid, (Ptr{Cvoid}, Cint), options, precision)
 end
 
-const separator = Sys.iswindows() ? "; " : ", "
+const separator = Sys.iswindows() ? ';' : ':'
 
 c_pathlist(s::AbstractString) = s
 c_pathlist(s) = join(s, separator)
