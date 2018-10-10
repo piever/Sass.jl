@@ -12,12 +12,18 @@ export sass_option_get_indent, sass_option_set_indent
 export sass_option_get_linefeed, sass_option_set_linefeed
 export sass_option_get_precision, sass_option_set_precision
 
+@enum Style nested expanded compact compressed
+
 function sass_option_get_output_style(options)
-    ccall((:sass_option_get_output_style, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
+    i = ccall((:sass_option_get_output_style, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cint, (Ptr{Cvoid},), options)
+    Style(i)
 end
 
-function sass_option_set_output_style(options, output_style)
+sass_option_set_output_style(options, output_style::Style) =
+    sass_option_set_output_style(options, Int(output_style))
+
+function sass_option_set_output_style(options, output_style::Integer)
     ccall((:sass_option_set_output_style, "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"),
         Cvoid, (Ptr{Cvoid}, Cint), options, output_style)
 end
