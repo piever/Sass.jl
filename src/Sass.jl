@@ -1,7 +1,5 @@
 module Sass
 
-const libsass_so = "/home/pietro/.julia/dev/Sass/deps/lib/libsass.so"
-
 include("version.jl")
 include("context.jl")
 include("options.jl")
