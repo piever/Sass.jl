@@ -1,5 +1,10 @@
 module Sass
 
+if isfile(joinpath(dirname(@__FILE__),"..","deps","deps.jl"))
+    include("../deps/deps.jl")
+else
+    error("Sass not properly installed. Please run `] build Sass` in the REPL")
+end
 include("version.jl")
 include("context.jl")
 include("options.jl")
