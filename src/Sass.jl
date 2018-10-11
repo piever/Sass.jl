@@ -1,7 +1,8 @@
 module Sass
 
-if isfile(joinpath(dirname(@__FILE__),"..","deps","deps.jl"))
-    include("../deps/deps.jl")
+const deps_file = normpath(joinpath(dirname(@__FILE__),"..","deps","deps.jl"))
+if isfile(deps_file)
+    include(deps_file)
 else
     error("Sass not properly installed. Please run `] build Sass` in the REPL")
 end
