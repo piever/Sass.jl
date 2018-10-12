@@ -1,4 +1,6 @@
+println("Before running test!")
 using Sass
+println("Precompiled successfully!")
 using Test
 
 filename = joinpath(Sass.examplefolder, "test.sass")
