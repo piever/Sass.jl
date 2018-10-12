@@ -4,7 +4,9 @@ println("Precompiled successfully!")
 using Test
 
 filename = joinpath(Sass.examplefolder, "test.sass")
-
+println("Defined filename")
+css = Sass.compile_file(filename; output_style = Sass.nested)
+println("Compiled file!")
 @testset "outputstyle" begin
     css = Sass.compile_file(filename; output_style = Sass.nested)
     @test css == "body {\n  font: 100% Helvetica, sans-serif;\n  color: #333; }\n"
