@@ -3,6 +3,12 @@ using Test
 
 filename = joinpath(Sass.examplefolder, "test.sass")
 
+context = sass_make_file_context(filename)
+compiler = sass_make_file_compiler(context)
+print("created a compiler")
+sass_compiler_parse(compiler)
+print("parsed a compiler")
+
 @testset "outputstyle" begin
     css = Sass.compile_file(filename; output_style = Sass.nested)
     @test css == "body {\n  font: 100% Helvetica, sans-serif;\n  color: #333; }\n"
