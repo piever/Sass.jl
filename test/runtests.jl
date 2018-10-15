@@ -4,6 +4,7 @@ using Test
 filename = joinpath(Sass.examplefolder, "test.sass")
 
 context = sass_make_file_context(filename)
+println("created a context")
 compiler = sass_make_file_compiler(context)
 print("created a compiler")
 sass_compiler_parse(compiler)
