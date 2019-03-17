@@ -24,17 +24,13 @@ download_info = Dict(
     Linux(:x86_64, libc=:glibc) => ("$bin_prefix/libsass.v3.5.5.x86_64-linux-gnu.tar.gz", "28316732cbe46c1047db3068824468b8a620b750b311bcef1b430c00de81092e"),
     Linux(:x86_64, libc=:musl) => ("$bin_prefix/libsass.v3.5.5.x86_64-linux-musl.tar.gz", "25c7925c9b57fce19a646c040484bd5f6a21603a27561469f319b96c462f8241"),
     FreeBSD(:x86_64) => ("$bin_prefix/libsass.v3.5.5.x86_64-unknown-freebsd11.1.tar.gz", "12a2b5739b186a14189b369101fac2241790104697cc7480ded0783f757231a1"),
-    Windows(:x86_64, compiler_abi=CompilerABI(:gcc7)) => ("$bin_prefix/libsass.v3.5.5.x86_64-w64-mingw32-gcc7.tar.gz", "c24fb85e81b8e2329651592406b4d371bea1e24f9dc7157f1534660945582ec9"),
+    Windows(:x86_64) => ("$bin_prefix/libsass.v3.5.5.x86_64-w64-mingw32-gcc7.tar.gz", "c24fb85e81b8e2329651592406b4d371bea1e24f9dc7157f1534660945582ec9"),
 )
 
 # Install unsatisfied or updated dependencies:
 unsatisfied = any(!satisfied(p; verbose=verbose) for p in products)
 const isWin64 = Sys.iswindows() && Sys.WORD_SIZE == 64
-@static if isWin64
-     dl_info = download_info[Windows(:x86_64, compiler_abi=CompilerABI(:gcc7))]
-else
-     dl_info = choose_download(download_info, platform_key_abi())
-end
+dl_info = choose_download(download_info, platform_key_abi())
 if dl_info === nothing && unsatisfied
     # If we don't have a compatible .tar.gz to download, complain.
     # Alternatively, you could attempt to install from a separate provider,
@@ -52,6 +48,5 @@ if unsatisfied || !isinstalled(dl_info...; prefix=prefix)
         install(dl_info...; prefix=prefix, force=true, verbose=verbose)
     end
 end
-
 # Write out a deps.jl file that will contain mappings for our products
 write_deps_file(joinpath(@__DIR__, "deps.jl"), products, verbose=verbose)
