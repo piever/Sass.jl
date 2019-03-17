@@ -29,7 +29,12 @@ download_info = Dict(
 
 # Install unsatisfied or updated dependencies:
 unsatisfied = any(!satisfied(p; verbose=verbose) for p in products)
-dl_info = choose_download(download_info, platform_key_abi())
+const isWin64 = Sys.iswindows() && Sys.WORD_SIZE == 64
+@static if isWin64
+     dl_info = download_info[Windows(:x86_64, compiler_abi=CompilerABI(:gcc7))]
+else
+     dl_info = choose_download(download_info, platform_key_abi())
+end
 if dl_info === nothing && unsatisfied
     # If we don't have a compatible .tar.gz to download, complain.
     # Alternatively, you could attempt to install from a separate provider,
@@ -41,7 +46,11 @@ end
 # trying to install is not itself installed) then load it up!
 if unsatisfied || !isinstalled(dl_info...; prefix=prefix)
     # Download and install binaries
-    install(dl_info...; prefix=prefix, force=true, verbose=verbose)
+    @static if isWin64
+        install(dl_info...; prefix=prefix, force=true, verbose=verbose, ignore_platform=true)
+    else
+        install(dl_info...; prefix=prefix, force=true, verbose=verbose)
+    end
 end
 
 # Write out a deps.jl file that will contain mappings for our products
