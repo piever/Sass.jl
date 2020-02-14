@@ -38,8 +38,8 @@ All libsass options can be passed as keyword arguments:
 - `source_map_file_urls`: create file urls for sources
 - `source_map_root`: pass-through as sourceRoot property
 - `is_indented_syntax_src`: treat source_string as sass (as opposed to scss)
-- `include_paths` (`AbstractString` or `AbstractArray{<:AbstractString}`)
-- `plugin_paths` (`AbstractString` or `AbstractArray{<:AbstractString}`)
+- `include_path` (`AbstractString` or `AbstractArray{<:AbstractString}`)
+- `plugin_path` (`AbstractString` or `AbstractArray{<:AbstractString}`)
 - `indent`: string to be used for indentation
 - `linefeed`: string to be used to for line feeds
 - `input_path`: the input path is used for source map generating. It can be used to define something with string compilation or to overload the input file path. It is set to `stdin` for data contexts and to the input file on file contexts.
