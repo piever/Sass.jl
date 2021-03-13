@@ -1,7 +1,7 @@
 name = "Sass"
 uuid = "322a6be2-4ae8-5d68-aaf1-3e960788d1d9"
 authors = ["Pietro Vertechi <pietro.vertechi@neuro.fchampalimaud.org>"]
-version = "0.1.0"
+version = "0.2.0"
 
 [deps]
 libsass_jll = "47bcb7c8-5119-555a-9eeb-0afcc36cd728"
