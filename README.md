@@ -1,12 +1,7 @@
 # Sass
 
-![Lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)<!--
 ![Lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)
-![Lifecycle](https://img.shields.io/badge/lifecycle-retired-orange.svg)
-![Lifecycle](https://img.shields.io/badge/lifecycle-archived-red.svg)
-![Lifecycle](https://img.shields.io/badge/lifecycle-dormant-blue.svg) -->
-[![Build Status](https://travis-ci.org/piever/Sass.jl.svg?branch=master)](https://travis-ci.org/piever/Sass.jl)
-[![Build status](https://ci.appveyor.com/api/projects/status/github/piever/Sass.jl?branch=master&svg=true)](https://ci.appveyor.com/project/piever/sass-jl)
+[![CI](https://github.com/piever/Sass.jl/workflows/CI/badge.svg?branch=master)](https://github.com/piever/Sass.jl/actions?query=workflow%3ACI+branch%3Amaster)
 [![codecov.io](http://codecov.io/github/piever/Sass.jl/coverage.svg?branch=master)](http://codecov.io/github/piever/Sass.jl?branch=master)
 
 ## Compile scss and sass file to css in Julia
