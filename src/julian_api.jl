@@ -69,10 +69,10 @@ function compile_file(filename; input_path = filename, source_map_file = nothing
     status == 0 || error(sass_context_get_error_text(ctx_out))
 
     css =  sass_context_get_output_string(ctx_out)
-    ret = source_map_file === nothing ? css : (css, sass_context_get_source_map_string(ctx_out))
+    output = source_map_file === nothing ? css : (css, sass_context_get_source_map_string(ctx_out))
 
     sass_delete_file_context(ctx)
-    ret
+    return output
 end
 
 """
@@ -95,4 +95,4 @@ function compile_file(filename, dest; output_path = dest, source_map_file = noth
             write(io, src_map)
         end
     end
- end
+end
