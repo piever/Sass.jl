@@ -44,9 +44,19 @@ end
 
 # Data
 
-function sass_make_data_context(data)
+function sass_copy_c_string(s)
+    ccall((:sass_copy_c_string, Sass.libsass_so),
+        Ptr{Cstring}, (Cstring,), s)
+end
+
+function sass_make_data_context(data::AbstractString)
+    # as sass assumes that it has control over the memory,
+    # we copy the data to memory that is under control of sass.
+    # Otherwise we would see segfaults when sass tries to free the memory.
+    sass_data = sass_copy_c_string(string(data))
+
     ccall((:sass_make_data_context, libsass_so),
-        Ptr{Cvoid}, (Ptr{UInt8},), data)
+        Ptr{Cvoid}, (Ptr{UInt8},), sass_data)
 end
 
 function sass_delete_data_context(context)
