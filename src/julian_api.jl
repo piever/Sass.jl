@@ -100,7 +100,7 @@ end
 """
 `compile_string(data::AbstractString; kwargs...)`
 
-Compile `filename` from sass or scss to a css string. Possible options, given by keyword
+Compile sass or scss string to a css string. Possible options, given by keyword
 arguments, are:
 
 - `output_style`: output style for the generated css code. See `Sass.Style` for options. For example `output_style  = Sass.nested`
@@ -144,4 +144,64 @@ function compile_string(data::AbstractString; kwargs...)
 
     sass_delete_data_context(ctx)
     return css
+end
+
+"""
+    compile_sass(data; kwargs...)
+
+Compile sass string to a css string. Possible options, given by keyword
+arguments, are:
+
+- `output_style`: output style for the generated css code. See `Sass.Style` for options. For example `output_style  = Sass.nested`
+- `source_comments`: a boolean to specify whether to insert inline source comments
+- `indent`: string to be used for indentation
+- `linefeed`: string to be used for line feeds
+- `precision`: precision for outputting fractional numbers
+
+## Examples
+
+```julia
+julia> Sass.compile_sass(raw"
+       \$font-stack:    Helvetica, sans-serif
+       \$primary-color: #333
+
+       body
+           font: 100% \$font-stack
+           color: \$primary-color
+       ")
+"body {\n  font: 100% Helvetica, sans-serif;\n  color: #333; }\n"
+```
+"""
+function compile_sass(data; kwargs...)
+    compile_string(data; is_indented_syntax_src = true, kwargs...)
+end
+
+"""
+    compile_scss(data; kwargs...)
+
+Compile scss string to a css string. Possible options, given by keyword
+arguments, are:
+
+- `output_style`: output style for the generated css code. See `Sass.Style` for options. For example `output_style  = Sass.nested`
+- `source_comments`: a boolean to specify whether to insert inline source comments
+- `indent`: string to be used for indentation
+- `linefeed`: string to be used for line feeds
+- `precision`: precision for outputting fractional numbers
+
+## Examples
+
+```
+julia> Sass.compile_scss(raw"
+       \$font-stack:    Helvetica, sans-serif;
+       \$primary-color: #333;
+
+       body {
+           font: 100% \$font-stack;
+           color: \$primary-color;
+       }")
+"body {\n  font: 100% Helvetica, sans-serif;\n  color: #333; }\n"
+```
+"""
+function compile_scss(data; kwargs...)
+    compile_string(data; is_indented_syntax_src = false, kwargs...)
 end

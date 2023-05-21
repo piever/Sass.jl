@@ -20,6 +20,20 @@ end
 
     css = Sass.compile_string(sass; output_style = Sass.nested, is_indented_syntax_src = true)
     @test css == "body {\n  font: 100% Helvetica, sans-serif;\n  color: #333; }\n"
+
+    css = Sass.compile_sass(sass)
+    @test css == "body {\n  font: 100% Helvetica, sans-serif;\n  color: #333; }\n"
+
+    scss = raw"
+    $font-stack:    Helvetica, sans-serif;
+    $primary-color: #333;
+
+    body {
+        font: 100% $font-stack;
+        color: $primary-color;
+    }"
+    css = Sass.compile_scss(scss)
+    @test css == "body {\n  font: 100% Helvetica, sans-serif;\n  color: #333; }\n"
 end
 
 @testset "wrongpath" begin
